@@ -5,6 +5,9 @@
 \usepackage{amsmath}
 \usepackage{float}
 
+\newcommand{\n}[1]{\overline{#1}}
+\newcommand{\g}[1]{\\\stackrel{\text{#1}}{=}}
+
 \begin{document}
 	\title{Grundlagen der Rechnerarchitektur\\ Übungsblatt 5}
 	\date{}
@@ -16,10 +19,147 @@
 		\begin{description}
 			\item[a)] Eine Schaltalgebra ist ein Spezialfall einer booleschen Algebra, in der nur 0 und 1 als Werte vorkommen.
 			\item[b)] 
+			\begin{description}
+				\item[i.]  NOR:\\
 			\begin{math}
-			x_1*x_2
+			x_1\cdot x_2\g{Doppelnegation}\n{\n{x_1\cdot x_2}}
+			\g{DeMorgan}\n{\n{x_1}+\n{x_2}}
+			\g{Idempotenz}\n{\n{x_1 + x_1} + \n{x_2 + x_2}}
+			\g{Definition}(x_1\n{+}x_1)\n{+}(x_2\n{+}x_2)
 			\end{math}
+			\\\\NAND:\\
+			\begin{math}
+			x_1\cdot x_2\g{Doppelnegation}\n{\n{x_1\cdot x_2}}
+			\g{Idempotenz}\n{\n{x_1\cdot x_2}\cdot \n{x_1\cdot x_2}}
+			\g{Definition}(x_1\n{\cdot }x_2)\n{\cdot }(x_1\n{\cdot }x_2)
+			\end{math}
+			\item[ii.] NOR:\\
+			\begin{math}
+			x_1\cdot \n{x_2}+\n{x_1}\cdot x_2
+			\g{Idempotenz}x_1\cdot \n{x_2+x_2}+\n{x_1+x_1}\cdot x_2
+			\g{Definition} x_1\cdot (x_2\n{+}x_2)+(x_1\n{+}x_1)\cdot x_2
+			\g{i.}(x_1\n{+}x_1)\n{+}((x_2\n{+}x_2)\n{+}(x_2\n{+}x_2))
+			  +((x_1\n{+}x_1)\n{+}(x_1\n{+}x_1))\n{+}(x_2\n{+}x_2)
+			\g{Doppelnegation}\overline{\overline{(x_1\n{+}x_1)\n{+}((x_2\n{+}x_2)\n{+}(x_2\n{+}x_2))
+				+((x_1\n{+}x_1)\n{+}(x_1\n{+}x_1))\n{+}(x_2\n{+}x_2)}}
+			\g{Idempotenz}((x_1\n{+}x_1)\n{+}((x_2\n{+}x_2)\n{+}(x_2\n{+}x_2))
+			\n{+}((x_1\n{+}x_1)\n{+}(x_1\n{+}x_1))\n{+}(x_2\n{+}x_2))\\\n{+}((x_1\n{+}x_1)\n{+}((x_2\n{+}x_2)\n{+}(x_2\n{+}x_2))
+			\n{+}((x_1\n{+}x_1)\n{+}(x_1\n{+}x_1))\n{+}(x_2\n{+}x_2))
+			\end{math}
+			\\\\NAND:\\
+			\begin{math}
+			x_1\cdot \n{x_2}+\n{x_1}\cdot x_2
+			\g{Doppelnegation}\n{\n{x_1\cdot \n{x_2}}}+\n{\n{\n{x_1}\cdot x_2}}
+			\g{DeMorgan}\n{\n{x_1\cdot \n{x_2}}\cdot \n{\n{x_1}\cdot x_2}}
+			\g{Idempotenz}\n{\n{x_1\cdot \n{x_2\cdot x_2}}\cdot \n{\n{x_1\cdot x_1}\cdot x_2}}
+			\g{Definition}(x_1\n{\cdot }(x_2\n{\cdot }x_2))\n{\cdot }((x_1\n{\cdot }x_1)\n{\cdot }x_2)
+			\end{math}
+			\end{description}
 		\end{description}
+	\item[2.]
+	\begin{description}
+		\item[a)] 
+		\begin{tabular}{c | c | c | c | c}
+			$x_1$ & $x_2$ & $x_3$ & $x_4$ & $f(x)$\\\hline
+			0 & 0 & 0 & 0 & 0 \\
+			1 & 0 & 0 & 0 & 1 \\
+			0 & 1 & 0 & 0 & 1 \\
+			1 & 1 & 0 & 0 & 0 \\
+			0 & 0 & 1 & 0 & 1 \\
+			1 & 0 & 1 & 0 & 0 \\
+			0 & 1 & 1 & 0 & 1 \\
+			1 & 1 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 1 \\
+			1 & 0 & 0 & 1 & 0 \\
+			0 & 1 & 0 & 1 & 1 \\
+			1 & 1 & 0 & 1 & 1 \\
+			0 & 0 & 1 & 1 & 1 \\
+			1 & 0 & 1 & 1 & 1 \\
+			0 & 1 & 1 & 1 & 1 \\
+			1 & 1 & 1 & 1 & 0 \\
+			
+		\end{tabular}
+	\item[b)]
+	DKNF:\\
+	\begin{math}
+	f(x) = x_1\n{x_2}\n{x_3}\n{x_4} + x_1\n{x_2}x_3x_4 + x_1x_2\n{x_3}x_4 + x_1\n{x_2}\n{x_3}x_4 + x_1x_2x_3\n{x_4} + x_1\n{x_2}x_3\n{x_4} + \n{x_1}\n{x_2}\n{x_3}x_4 + x_1x_2\n{x_3}\n{x_4} + \n{x_1}x_2\n{x_3}\n{x_4} + x_1\n{x_2}\n{x_3}\n{x_4} 
+	\end{math}
+	\\\\KKNF:\\
+	\begin{math}
+	f(x) = (x_1+x_2+x_3+x_4)\cdot (\n{x_1}+\n{x_2}+x_3+x_4)\cdot (\n{x_1}+x_2+\n{x_3}+x_4)\cdot (\n{x_1}+\n{x_2}+\n{x_3}+x_4)\cdot (\n{x_1}+x_2+x_3+\n{x_4})\cdot (\n{x_1}+\n{x_2}+\n{x_3}+\n{x_4})
+	\end{math}
+	\item[c)] 
+	\begin{tabular}{c | c | c | c | c | c}
+		$ & \n{x_1} & x_1 & x_1 & \n{x_1} & \\\hline
+		\n{x_2} & 0 & 1 & 0 & 1 & \n{x_4}\\\hline 
+		x_2 & 1 & 0 & 0 & 1 & \n{x_4}\\\hline
+		x_2 & 1 & 1 & 0 & 1 & x_4\\\hline
+		\n{x_2} & 1 & 0 & 1 & 1 & x_4\\\hline   
+		 & \n{x_3} & \n{x_3} & x_3 & x_3 & \\$
+	\end{tabular}
+	\\\implies $f(x) = \n{x_1}x_3 + x_2\n{x_3}x_4 + \n{x_1}x_2\n{x_3} + \n{x_1}\n{x_3}x_4 + x_1\n{x_2}\n{x_4}\n{x_3} + \n{x_2}x_3x_4$
+	\\Da die DKNF und die KKNF äquivalent sind, ist die minimale Funktion von beiden Formen Identisch.
+	\end{description}
+	\item[3.] 
+	\begin{description}
+		\item[a)] DKNF:\\ 
+		\begin{math}
+		f(x) = \n{x_1}\n{x_2}x_3 + \n{x_1}x_2\n{x_3} + \n{x_1}x_2x_3 + x_1\n{x_2}\n{x_3} + x_1x_2x_3
+		\end{math}
+		\\\\KKNF:\\
+		\begin{math}
+		f(x) = (x_1+x_2+x_3)\cdot (\n{x_1}+x_2+\n{x_3})\cdot(\n{x_1}+\n{x_2}+x_3) 
+		\end{math}
+		\item[b)] Beide Funktionen haben dieselbe Wertetabelle, aus der sie auch abgeleitet wurden. Sie liefern für dieselbe Eingabe dieselbe Ausgabe. Damit sind sie der Definition nach Äquivalent. 
+		\item[c)]
+		\begin{tabular}{c | c | c | c | c}
+			$ & \n{x_1} & x_1 & x_1 & \n{x_1} \\\hline
+			\n{x_2} & 0 & 1 & 0 & 1 \\\hline 
+			x_2 & 1 & 0 & 1 & 1 \\\hline
+			& \n{x_3} & \n{x_3} & x_3 & x_3 \\$
+		\end{tabular}
+	\\\implies $f(x) = x_1\n{x_2}\n{x_3} + \n{x_1}x_3 + x_2x_3 + \n{x_1}x_2$
+	\item[d)]
+	DKNF:\\ 
+	\begin{math}
+	g(x) = \n{x_1}\n{x_2}x_3 + \n{x_1}x_2\n{x_3} + x_1\n{x_2}\n{x_3} + x_1\n{x_2}x_3 x_1x_2\n{x_3} + x_1x_2x_3
+	\end{math}
+	\\\\KKNF:\\
+	\begin{math}
+	g(x) = (x_1+x_2+x_3)\cdot (x_1+\n{x_2}+\n{x_3})
+	\end{math}
+	\item[e)] 
+	\begin{math}
+	g(x) = (x_1+x_2+x_3)\cdot (x_1+\n{x_2}+\n{x_3}) 
+	\g{Distributivität}x_1x_1 + x_1\n{x_2} + x_1\n{x_3} + x_2x_1 + x_2\n{x_2} + x_2\n{x_3} + x_3x_1 + x_3\n{x_2} + x_3\n{x_3}
+	\g{Idempotenz} x_1 + x_1\n{x_2} + x_1\n{x_3} + x_2x_1 + x_2\n{x_2} + x_2\n{x_3} + x_3x_1 + x_3\n{x_2} + x_3\n{x_3}
+	\g{Komplementarität} x_1 + x_1\n{x_2} + x_1\n{x_3} + x_2x_1 + x_2\n{x_3} + x_3x_1 + x_3\n{x_2}
+	\g{Absorption} x_1 + x_2\n{x_3} + x_3\n{x_2}
+	\end{math}
+	\end{description}
+	\item[4.] 
+	\begin{description}
+		\item[a)] 
+		\begin{math}
+		f(x_1, x_2, x_3) = \n{x_1}x_3 + x_2\n{x_3}
+		\\\stackrel{Entwicklung nach x_1}{=}
+		\n{x_1}x_3 + \n{x_1}x_2\n{x_3} + x_1x_2\n{x_3}
+		\\\stackrel{Entwicklung nach x_2}{=}
+		\n{x_1}\n{x_2}x_3 + \n{x_1}x_2x_3 + \n{x_1}x_2\n{x_3} + x_1x_2\n{x_3}
+		\\\stackrel{Entwicklung nach x_3}{=}
+		\n{x_1}\n{x_2}x_3 + \n{x_1}x_2x_3 + \n{x_1}x_2\n{x_3} + x_1x_2\n{x_3}
+		\end{math}
+		\item[b)] 
+		\begin{math}
+		f(x_1, x_2, x_3) = \n{x_1} + \n{x_2}x_3
+		\\\stackrel{Entwicklung nach x_1}{=}
+		\n{x_1} + \n{x_1}\n{x_2}x_3 + x_1\n{x_2}x_3
+		\\\stackrel{Entwicklung nach x_2}{=}
+		\n{x_1}\n{x_2} + \n{x_1}\n{x_2}x_3 + x_1\n{x_2}x_3 + \n{x_1}x_2
+		\\\stackrel{Entwicklung nach x_3}{=}
+		\n{x_1}\n{x_2}\n{x_3} + \n{x_1}\n{x_2}x_3 + x_1\n{x_2}x_3 + \n{x_1}x_2\n{x_3} + \n{x_1}\n{x_2}x_3 + \n{x_1}x_2x_3
+		\end{math}
+	\end{description}
 	\end{description}
 	
 \end{document}
