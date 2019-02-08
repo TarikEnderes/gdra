@@ -24,7 +24,7 @@ wait:
 	addi $sp, $sp, -8	#Reserviere Speicherplatz
 	sw $a0, 0($sp)
 	sw $v0, 4($sp)
-	li $vo, 32
+	li $v0, 32
 	mul $a0, $a0, $7	#Multipliziere Anzahl Taktzyklen mit Taktzyklusdauer in ms
 	syscall			#Warte
 	#Lade veränderte Register aus dem Stack
@@ -34,7 +34,7 @@ wait:
 	jr $ra			#Geh zurück
 	
 phase1:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, rot
 	la $s1, grün
@@ -45,7 +45,7 @@ phase1:
 	j main
 	
 phase2:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, rot
 	la $s1, rot
@@ -56,7 +56,7 @@ phase2:
 	j main
 	
 phase3:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, rot
 	la $s1, rot
@@ -67,7 +67,7 @@ phase3:
 	j main
 	
 phase4:				#Für NSA Gelb gewählt
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, gelb
 	la $s1, rot
@@ -78,7 +78,7 @@ phase4:				#Für NSA Gelb gewählt
 	j main
 	
 phase5:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, grün
 	la $s1, rot
@@ -89,7 +89,7 @@ phase5:
 	j main
 	
 phase6:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, gelb
 	la $s1, rot
@@ -100,7 +100,7 @@ phase6:
 	j main
 	
 phase7:
-	addi $s6, 1		#Nächste Phase
+	addi $s6, $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, rot
 	la $s1, rot
@@ -108,15 +108,15 @@ phase7:
 	la $s3, rot
 	li $a0, 2		#Lege Anzahl Zeitzyklen fest
 	jal wait
-	j main
+	#j main
 	
 phase8:				#Für WOA Gelb gewählt
-	lii $s6, 1		#Nächste Phase
+	li $s6, 1		#Nächste Phase
 	#Setze Werte
 	la $s0, rot
-	la $s1, grün
-	la $s2, grün
+	la $s1, rot
+	la $s2, gelb
 	la $s3, rot
-	li $a0, 12		#Lege Anzahl Zeitzyklen fest
+	li $a0, 3		#Lege Anzahl Zeitzyklen fest
 	jal wait
 	j main
